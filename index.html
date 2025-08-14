@@ -1,4 +1,3 @@
-index.html
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,13 +5,16 @@ index.html
   <title>QuickBucX (QBX) — Official</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="description" content="QuickBucX (QBX) — fixed-supply ERC-20 on Ethereum. 1,000,000 supply, no taxes or admin controls."/>
+  <!-- small favicon used by Etherscan form -->
   <link rel="icon" href="qbx-32.svg" type="image/svg+xml"/>
   <style>
     :root{--bg1:#0f0b16;--bg2:#07070b}
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
+    body{
+      margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
       background:radial-gradient(100% 100% at 50% 0%,var(--bg1) 0%,var(--bg2) 60%,#050508 100%);
-      color:#eaeaea;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+      color:#eaeaea;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif
+    }
     .card{max-width:900px;width:100%;background:#0e0b16;border:1px solid #2a2240;border-radius:16px;padding:24px;
       box-shadow:0 10px 40px rgba(0,0,0,.35)}
     h1{margin:0 0 8px;font-size:28px}
@@ -21,7 +23,7 @@ index.html
     button{cursor:pointer;border:1px solid #2a2240;background:#151027;color:#fff;border-radius:10px;padding:10px 14px}
     button:hover{background:#1b1433}
     .grid{display:grid;grid-template-columns:140px 1fr;gap:16px;margin-top:16px}
-    img{width:120px;height:120px;border-radius:50%;background:#000}
+    img.logo{width:120px;height:120px;border-radius:50%;background:#000}
     a{color:#b08cff}
     footer{opacity:.7;margin-top:12px}
   </style>
@@ -29,15 +31,19 @@ index.html
 <body>
   <div class="card">
     <div class="row">
-      <img src="qbx-512.png" alt="QBX logo"/>
+      <!-- ✅ uses your SVG logo -->
+      <img class="logo" src="qbx-logo.svg" alt="QBX logo"/>
       <div>
         <h1>QuickBucX (QBX)</h1>
         <div>Fixed-supply ERC-20 on Ethereum — total supply: <strong>1,000,000 QBX</strong>. No taxes, no owner functions.</div>
         <div class="row" style="margin-top:10px">
+          <!-- MAINNET token address -->
           <span class="addr" id="addr">0x0ce9737aB0EAF50a7398403D49cC5b9f4fb97696</span>
           <button onclick="copyAddr()">Copy address</button>
           <button onclick="addToMM()">Add to MetaMask</button>
-          <a target="_blank" rel="noopener" href="https://app.uniswap.org/#/swap?outputCurrency=0x0ce9737aB0EAF50a7398403D49cC5b9f4fb97696" class="addr" style="text-decoration:none;">Buy on Uniswap</a>
+          <a target="_blank" rel="noopener"
+             href="https://app.uniswap.org/#/swap?outputCurrency=0x0ce9737aB0EAF50a7398403D49cC5b9f4fb97696"
+             class="addr" style="text-decoration:none;">Buy on Uniswap</a>
         </div>
       </div>
     </div>
@@ -47,7 +53,8 @@ index.html
       <div>Open Uniswap on <strong>Ethereum Mainnet</strong> and paste the contract address above. The pool will appear once liquidity is added.</div>
 
       <div><strong>Contract</strong></div>
-      <div><a target="_blank" rel="noopener" href="https://etherscan.io/token/0x0ce9737aB0EAF50a7398403D49cC5b9f4fb97696">View on Etherscan</a></div>
+      <div><a target="_blank" rel="noopener"
+              href="https://etherscan.io/token/0x0ce9737aB0EAF50a7398403D49cC5b9f4fb97696">View on Etherscan</a></div>
 
       <div><strong>Contact</strong></div>
       <div>📧 <a href="mailto:stijelja@hotmail.no">stijelja@hotmail.no</a></div>
@@ -63,16 +70,28 @@ index.html
 
 <script>
 document.getElementById('y').textContent = new Date().getFullYear();
-function copyAddr(){ navigator.clipboard.writeText(document.getElementById('addr').textContent.trim()); alert('Contract address copied'); }
+
+function copyAddr(){
+  const a = document.getElementById('addr').textContent.trim();
+  navigator.clipboard.writeText(a);
+  alert('Contract address copied');
+}
+
 async function addToMM(){
   if(!window.ethereum){ alert('MetaMask not found'); return; }
   try{
     await window.ethereum.request({
       method:'wallet_watchAsset',
-      params:{ type:'ERC20', options:{
-        address:document.getElementById('addr').textContent.trim(),
-        symbol:'QBX', decimals:18, image: location.origin + '/qbx-512.png'
-      }}
+      params:{
+        type:'ERC20',
+        options:{
+          address:document.getElementById('addr').textContent.trim(),
+          symbol:'QBX',
+          decimals:18,
+          // ✅ point MetaMask to your SVG (works fine)
+          image: location.origin + '/qbx-logo.svg'
+        }
+      }
     });
   }catch(e){ console.error(e); alert('Could not add to MetaMask'); }
 }
