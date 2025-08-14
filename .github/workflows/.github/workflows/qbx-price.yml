@@ -1,0 +1,20 @@
+name: Post QBX price to Discord
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'   # every 10 minutes
+  workflow_dispatch:         # allows manual run
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Post price
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TOKEN_ADDRESS: 0x0ce9737aB0EAF50a7398403D49cC5b9f4fb97696
+        run: node scripts/post-price.mjs
