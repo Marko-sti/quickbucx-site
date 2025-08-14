@@ -1,0 +1,76 @@
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" aria-label="QBX Coin Logo">
+      <defs>
+        <!-- Rims & face -->
+        <linearGradient id="rimNeon" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#8e4dff"/>
+          <stop offset="50%" stop-color="#fff94a"/>
+          <stop offset="100%" stop-color="#7a00ff"/>
+        </linearGradient>
+        <radialGradient id="faceNeon" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#1a1026"/>
+          <stop offset="75%" stop-color="#0e0b16"/>
+          <stop offset="100%" stop-color="#0a0a0f"/>
+        </radialGradient>
+        <!-- Purple burst used for inner glow & text fill -->
+        <radialGradient id="burst" cx="50%" cy="45%" r="40%">
+          <stop offset="0%" stop-color="#b400ff" stop-opacity="0.45"/>
+          <stop offset="70%" stop-color="#7a00ff" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <!-- Glows -->
+        <filter id="neonGlow">
+          <feDropShadow dx="0" dy="0" stdDeviation="8"  flood-color="#fff94a" flood-opacity="1"/>
+          <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#fff94a" flood-opacity="0.6"/>
+          <feDropShadow dx="0" dy="0" stdDeviation="28" flood-color="#b67bff" flood-opacity="0.5"/>
+        </filter>
+        <filter id="txtGlow">
+          <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#a64dff" flood-opacity="0.9"/>
+        </filter>
+        <!-- Sparkle -->
+        <symbol id="spark" viewBox="0 0 100 100">
+          <polygon points="50,0 61,39 100,50 61,61 50,100 39,61 0,50 39,39" fill="#fff9a8"/>
+        </symbol>
+        <!-- Clip to a perfect circle (so export stays round) -->
+        <clipPath id="circleClip"><circle cx="512" cy="512" r="472"/></clipPath>
+      </defs>
+
+      <!-- Only draw inside the circle; outside stays transparent -->
+      <g clip-path="url(#circleClip)">
+        <!-- Outer rim + face -->
+        <circle cx="512" cy="512" r="460" fill="url(#faceNeon)" stroke="url(#rimNeon)" stroke-width="24"/>
+        <!-- Inner rim lines -->
+        <circle cx="512" cy="512" r="420" fill="none" stroke="#2a1a3f" stroke-width="10"/>
+        <!-- Subtle inner glow -->
+        <circle cx="512" cy="480" r="330" fill="url(#burst)"/>
+
+        <!-- Speed arcs -->
+        <g opacity="0.25" transform="rotate(-18 512 512)">
+          <ellipse cx="512" cy="560" rx="420" ry="180" fill="none" stroke="#b97aff" stroke-width="6"/>
+          <ellipse cx="512" cy="560" rx="370" ry="155" fill="none" stroke="#8e4dff" stroke-width="4"/>
+          <ellipse cx="512" cy="560" rx="320" ry="130" fill="none" stroke="#b97aff" stroke-width="3"/>
+        </g>
+
+        <!-- Lightning bolt -->
+        <g filter="url(#neonGlow)">
+          <polygon fill="#fff94a"
+            points="560,240 470,460 620,460 430,820 520,560 380,560"/>
+        </g>
+
+        <!-- QBX text -->
+        <g filter="url(#txtGlow)">
+          <text x="512" y="710" text-anchor="middle"
+                font-family="Poppins, Montserrat, Arial Black, sans-serif"
+                font-size="220" font-weight="900"
+                fill="url(#burst)" stroke="#0b0018" stroke-width="10">QBX</text>
+          <text x="512" y="710" text-anchor="middle"
+                font-family="Poppins, Montserrat, Arial Black, sans-serif"
+                font-size="220" font-weight="900"
+                fill="none" stroke="#fff94a" stroke-opacity="0.7" stroke-width="3">QBX</text>
+        </g>
+
+        <!-- Sparkles -->
+        <use href="#spark" width="34" height="34" x="255" y="360" opacity="0.9" filter="url(#neonGlow)"/>
+        <use href="#spark" width="22" height="22" x="740" y="310" opacity="0.9" filter="url(#neonGlow)"/>
+        <use href="#spark" width="26" height="26" x="810" y="560" opacity="0.7" filter="url(#neonGlow)"/>
+      </g>
+    </svg>
